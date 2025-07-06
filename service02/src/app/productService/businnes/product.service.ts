@@ -1,7 +1,7 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { ClientProxy, ClientProxyFactory, Transport } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
-import { Product, CreateProductDto } from './types/product.types';
+import { Product, CreateProductDto } from '../../../types/product.types';
 
 @Injectable()
 export class ProductService implements OnModuleInit {
@@ -12,7 +12,7 @@ export class ProductService implements OnModuleInit {
       transport: Transport.TCP,
       options: {
         host: 'service01',
-        port: 3002,
+        port: 3001,
       },
     });
   }

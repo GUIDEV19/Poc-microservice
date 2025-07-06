@@ -8,12 +8,13 @@ export const databaseProviders = [
       const dataSource = new DataSource({
         type: 'mysql',
         host: configService.get('DB_HOST', 'database_service2'),
-        port: configService.get('DB_PORT', 3306),
+        port: configService.get('DB_PORT', 3312),
         username: configService.get('DB_USERNAME', 'root'),
         password: configService.get('DB_PASSWORD', 'root'),
         database: configService.get('DB_DATABASE', 'service2'),
-        entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-        synchronize: configService.get('NODE_ENV') === 'development',
+        migrations: [__dirname + '/../../database/migrations/**/*.ts'],
+        entities: [__dirname + '/../app/**/**/*.entity{.ts,.js}'],
+        synchronize: false,
         logging: ['error', 'warn', 'schema'],
         extra: {
           connectionLimit: 10,
