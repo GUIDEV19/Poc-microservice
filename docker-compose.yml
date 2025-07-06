@@ -1,0 +1,96 @@
+version: '3.8'
+
+services:
+  service01:
+    build:
+      context: ./service01
+      dockerfile: DockerFile
+    container_name: service01
+    env_file:
+      - ./service01/.env
+    ports:
+      - "3001:3001"
+      - "3002:3002"
+    volumes:
+      - ./service01:/service01
+      - /service01/node_modules
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+      - DB_HOST=database_service1
+      - DB_PORT=3306
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+      - DB_DATABASE=service1
+    links:
+      - database_service1
+    depends_on:
+      - database_service1
+    stdin_open: true
+    tty: true
+    networks:
+      - app_network
+
+  service02:
+    build:
+      context: ./service02
+      dockerfile: DockerFile
+    container_name: service02
+    env_file:
+      - ./service02/.env
+    ports:
+      - "3003:3003"
+    volumes:
+      - ./service02:/service02
+      - /service02/node_modules
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+      - DB_HOST=database_service2
+      - DB_PORT=3306
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+      - DB_DATABASE=service2
+    links:
+      - database_service2
+    depends_on:
+      - database_service2
+      - service01
+    stdin_open: true
+    tty: true
+    networks:
+      - app_network
+
+  database_service1:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - "3311:3306"
+    volumes:
+      - ./database_service1:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: service1
+    networks:
+      - app_network
+
+  database_service2:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - "3312:3306"
+    volumes:
+      - ./database_service2:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: service2
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
+
+volumes:
+  database_service1:
+  database_service2:
