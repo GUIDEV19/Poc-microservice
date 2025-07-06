@@ -41,8 +41,7 @@ export class CreateProductTable1710000000000 implements MigrationInterface {
                         name: "sku",
                         type: "varchar",
                         length: "50",
-                        isNullable: false,
-                        isUnique: true
+                        isNullable: false
                     },
                     {
                         name: "category",

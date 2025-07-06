@@ -4,7 +4,7 @@ services:
   service01:
     build:
       context: ./service01
-      dockerfile: DockerFile
+      dockerfile: ./DockerFile
     container_name: service01
     env_file:
       - ./service01/.env

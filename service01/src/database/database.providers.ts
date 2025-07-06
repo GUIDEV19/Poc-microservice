@@ -12,8 +12,8 @@ export const databaseProviders = [
         username: configService.get('DB_USERNAME', 'root'),
         password: configService.get('DB_PASSWORD', 'root'),
         database: configService.get('DB_DATABASE', 'service1'),
-        entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-        synchronize: configService.get('NODE_ENV') === 'development',
+        entities: [__dirname + '/../app/**/**/*.entity{.ts,.js}'],
+        synchronize: false,
         logging: ['error', 'warn', 'schema'],
         extra: {
           connectionLimit: 10,
