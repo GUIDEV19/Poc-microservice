@@ -9,8 +9,8 @@ export class ClientService {
         this.client = ClientProxyFactory.create({
             transport: Transport.TCP,
             options: {
-                host: 'service01',
-                port: 3002,
+                host: 'service02',
+                port: 4002,
             },
         });
     }

@@ -12,7 +12,7 @@ export class ProductService implements OnModuleInit {
       transport: Transport.TCP,
       options: {
         host: 'service01',
-        port: 3001,
+        port: 4001,
       },
     });
   }
@@ -20,6 +20,7 @@ export class ProductService implements OnModuleInit {
   async onModuleInit() {
     try {
       await this.client.connect();
+      console.log('Successfully connected to product service');
     } catch (error) {
       console.error('Failed to connect to product service:', error);
     }
